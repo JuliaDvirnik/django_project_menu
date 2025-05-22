@@ -26,7 +26,7 @@ def draw_menu(context, menu_name):
             else:
                 children_map[item.parent_id].append(item)
 
-        return tree, items_by_id, active_item, children_map # todo нам не над проверить, что active item не none?
+        return tree, items_by_id, active_item, children_map
 
     def find_visible_items():
         visible_items = set()
