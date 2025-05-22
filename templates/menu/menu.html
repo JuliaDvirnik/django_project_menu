@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <ul>
-      {% for item in root_items %}
-          {% include "menu/menu_item.html" with item=item active_item=active_item request=request %}
-      {% endfor %}
-    </ul>
-</body>
-</html>
+<ul>
+  {% for item in root_items %}
+      {% include "menu/menu_item.html" with item=item active_item=active_item visible_items=visible_items dict_of_children=dict_of_children request=request %} 
+  {% endfor %}
+</ul>
+

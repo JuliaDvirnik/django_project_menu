@@ -27,10 +27,13 @@ urlpatterns = [
     path('', index, name='base'),
     path('catalog/', index, name='cat'),
     path('catalog/bytovaya-tehnika', index),
-    path('about/', index),
     path('catalog/smartfony-i-telefony', index),
+    path('catalog/smartfony-i-telefony/smart', index),
     path('catalog/bytovaya-tehnika/holodolniki', index),
     path('catalog/bytovaya-tehnika/elektrochajniki', index, name='elektrochajniki'),
-    path('<path:any_path>/', index),
+    path('catalog/pk_noutbuki', index),
+    path('catalog/instrumenti', index),
+    path('about/', index),
+    path('contacts/', index),
 ]
 

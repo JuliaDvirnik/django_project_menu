@@ -1,7 +1,16 @@
 {% load menu_tags %}
 <!DOCTYPE html>
 <html>
-<head><title>Menu</title></head>
+<head>
+    <title>Menu</title>
+    <style>
+        a.active {
+            font-weight: bold;
+            color: #d32f2f;
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
     <h1>Навигация</h1>
     {% draw_menu 'main menu' %}

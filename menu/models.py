@@ -1,7 +1,7 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse,NoReverseMatch
 
-#todo нельзя выбрать родителем себя, и нельзя зациклить (в родителях у обих выбрать обоих)
 
 class Menu(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -27,3 +27,26 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.title
+
+    def clean(self):
+        if self.parent == self:
+            raise ValidationError('Нельзя выбрать родителем самого себя')
+
+        parent = self.parent
+        while parent:
+            if parent == self:
+                raise ValidationError('Нельзя создавать цикл')
+            parent = parent.parent
+
+        if not self.url and not self.named_url:
+            raise ValidationError('Одно из полей URL, либо named URL должно быть заполнено')
+
+        if self.named_url:
+            try:
+                reverse(self.named_url)
+            except NoReverseMatch:
+                raise ValidationError(f'Указанный named URL "{self.named_url}" не существует')
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
