@@ -34,18 +34,17 @@ def draw_menu(context, menu_name):
         visible_items.add(active_item)
         for child in dict_of_children.get(active_item.id, []):
             visible_items.add(child)
-        parent = dict_of_items.get(active_item.parent_id)
+        parent = menu_items_by_id.get(active_item.parent_id)
         while parent:
             visible_items.add(parent)
-            for sibling in dict_of_children.get(parent.id, []):
-                visible_items.add(sibling)
-            parent = dict_of_items.get(parent.parent_id)
+            visible_items.update(dict_of_children.get(parent.id, []))
+            parent = menu_items_by_id.get(parent.parent_id)
         return visible_items
 
     def normalize_path(path):
         return path.rstrip('/')
 
-    root_items, dict_of_items, active_item, dict_of_children = build_tree(menu_items)
+    root_items, menu_items_by_id, active_item, dict_of_children = build_tree(menu_items)
     print('active_item', active_item)
     print('dict_of_children', dict_of_children)
     visible_items = find_visible_items()
